@@ -18,6 +18,10 @@ public class Main : MonoBehaviour
             Vector3 next = dino.transform.position;
             next.x -= speed * Time.deltaTime;
             dino.transform.position = next;
+
+            Vector3 scale = dino.transform.localScale;
+            scale.x = -1;
+            dino.transform.localScale = scale;
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -25,6 +29,10 @@ public class Main : MonoBehaviour
             Vector3 next = dino.transform.position;
             next.x += speed * Time.deltaTime;
             dino.transform.position = next;
+
+            Vector3 scale = dino.transform.localScale;
+            scale.x = 1;
+            dino.transform.localScale = scale;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
