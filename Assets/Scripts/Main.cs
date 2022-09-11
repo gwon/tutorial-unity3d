@@ -28,5 +28,11 @@ public class Main : MonoBehaviour
     {
         Vector3 next = dino.transform.position + dir * Time.deltaTime * speed;
         dino.transform.position = next;
+        if ((int)dir.x != 0)
+        {
+            var scale = dino.transform.localScale;
+            scale.x = dir.x;
+            dino.transform.localScale = scale;
+        }
     }
 }
