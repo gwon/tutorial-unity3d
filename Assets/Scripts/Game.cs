@@ -74,7 +74,8 @@ public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActi
     void Controller.IUIActions.OnSubmit(InputAction.CallbackContext context)
     {
         Debug.Log($"OnSubmit");
-
+        var boo = GetComponentInChildren<Boo>();
+        boo.Jump();
     }
 
     void Controller.IUIActions.OnCancel(InputAction.CallbackContext context)
@@ -105,24 +106,20 @@ public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActi
     void Controller.IUIActions.OnMiddleClick(InputAction.CallbackContext context)
     {
         Debug.Log($"OnMiddleClick");
-
     }
 
     void Controller.IUIActions.OnRightClick(InputAction.CallbackContext context)
     {
         Debug.Log($"OnRightClick");
-
     }
 
     void Controller.IUIActions.OnTrackedDevicePosition(InputAction.CallbackContext context)
     {
         Debug.Log($"OnTrackedDevicePosition");
-
     }
 
     void Controller.IUIActions.OnTrackedDeviceOrientation(InputAction.CallbackContext context)
     {
         Debug.Log($"OnTrackedDeviceOrientation");
-
     }
 }
