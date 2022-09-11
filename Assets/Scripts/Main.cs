@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using System;
 using UnityEngine.SceneManagement;
 
-public class Main : MonoBehaviour, Controller.IPlayerActions
+public class Main : MonoBehaviour
 {
     public float speed = 10;
     public Vector3 dir = Vector3.zero;
@@ -16,10 +16,6 @@ public class Main : MonoBehaviour, Controller.IPlayerActions
 
     void Start()
     {
-        controller = new Controller();
-        controller.Player.Enable();
-        controller.Player.SetCallbacks(this);
-
         var ui = GetComponentInChildren<UIDocument>(true).rootVisualElement;
         var btStart = ui.Q<Button>("Start");
         btStart.clicked += OnStartClick;
@@ -31,19 +27,5 @@ public class Main : MonoBehaviour, Controller.IPlayerActions
         SceneManager.LoadScene("Game");
     }
 
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        Debug.Log("OnFire");
-    }
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Debug.Log("On move >>> " + dir);
-        dir = context.ReadValue<Vector2>();
-    }
-
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        Debug.Log("OnLook >>> " + context);
-    }
 }

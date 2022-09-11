@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using System;
 using UnityEngine.SceneManagement;
 
-public class Game : MonoBehaviour
+public class Game : MonoBehaviour, Controller.IPlayerActions
 {
     public GameObject dino;
     public float speed = 10;
@@ -14,9 +14,11 @@ public class Game : MonoBehaviour
     private Controller controller;
 
     private UIDocument ui;
-
     void Start()
     {
+        controller = new Controller();
+        controller.Player.Enable();
+        controller.Player.SetCallbacks(this);
         var ui = GetComponentInChildren<UIDocument>(true).rootVisualElement;
         var btExit = ui.Q<Button>("Exit");
         btExit.clicked += OnExitClick;
@@ -27,6 +29,22 @@ public class Game : MonoBehaviour
         Debug.Log("OnExitClick");
         SceneManager.LoadScene("Main");
 
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnFire");
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Debug.Log("On move >>> " + dir);
+        dir = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnLook >>> " + context);
     }
 
     void Update()
