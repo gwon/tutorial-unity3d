@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActions
 {
@@ -90,9 +91,9 @@ public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActi
     void Controller.IUIActions.OnClick(InputAction.CallbackContext context)
     {
         Debug.Log($"OnClick");
-        Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
-        objectPos.z = 0;
-        Instantiate(miniBoo, objectPos, Quaternion.identity);
+        Vector3 pos = Camera.main.ScreenToWorldPoint(mousePos);
+        pos.z = 0;
+        dino.transform.DOMove(pos, 0.5f);
     }
 
     void Controller.IUIActions.OnScrollWheel(InputAction.CallbackContext context)
