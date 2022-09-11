@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using System;
 
 public class Main : MonoBehaviour, Controller.IPlayerActions
 {
@@ -10,11 +12,39 @@ public class Main : MonoBehaviour, Controller.IPlayerActions
     public Vector3 dir = Vector3.zero;
     private Controller controller;
 
+    private UIDocument ui;
+
     void Start()
     {
         controller = new Controller();
         controller.Player.Enable();
         controller.Player.SetCallbacks(this);
+
+        var ui = GetComponentInChildren<UIDocument>(true).rootVisualElement;
+        var btStart = ui.Q<Button>("Start");
+        var btOption = ui.Q<Button>("Option");
+        var btExit = ui.Q<Button>("Exit");
+
+        btStart.clicked += OnStartClick;
+        btOption.clicked += OnOptionClick;
+        btExit.clicked += OnExitClick;
+    }
+
+    private void OnExitClick()
+    {
+        Debug.Log("OnExitClick");
+
+    }
+
+    private void OnOptionClick()
+    {
+        Debug.Log("OnOptionClick");
+
+    }
+
+    private void OnStartClick()
+    {
+        Debug.Log("OnStartClick");
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -31,7 +61,6 @@ public class Main : MonoBehaviour, Controller.IPlayerActions
     public void OnLook(InputAction.CallbackContext context)
     {
         Debug.Log("OnLook >>> " + context);
-
     }
 
     void Update()
@@ -45,6 +74,4 @@ public class Main : MonoBehaviour, Controller.IPlayerActions
             dino.transform.localScale = scale;
         }
     }
-
-
 }
