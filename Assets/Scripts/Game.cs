@@ -9,9 +9,11 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActions
 {
     public GameObject dino;
+    public GameObject miniBoo;
     public float speed = 10;
     public Vector3 dir = Vector3.zero;
     private Controller controller;
+    private Vector3 mousePos = Vector2.zero;
 
     private UIDocument ui;
     void Start()
@@ -60,7 +62,6 @@ public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActi
             scale.x = dir.x;
             dino.transform.localScale = scale;
         }
-
     }
 
     void Controller.IUIActions.OnNavigate(InputAction.CallbackContext context)
@@ -82,14 +83,16 @@ public class Game : MonoBehaviour, Controller.IPlayerActions, Controller.IUIActi
 
     void Controller.IUIActions.OnPoint(InputAction.CallbackContext context)
     {
-        var pos = context.ReadValue<Vector2>();
-        Debug.Log($"position >>> {pos.x}, {pos.y}");
+        mousePos = context.ReadValue<Vector2>();
+        Debug.Log($"position >>> {mousePos.x}, {mousePos.y}");
     }
 
     void Controller.IUIActions.OnClick(InputAction.CallbackContext context)
     {
         Debug.Log($"OnClick");
-
+        Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        objectPos.z = 0;
+        Instantiate(miniBoo, objectPos, Quaternion.identity);
     }
 
     void Controller.IUIActions.OnScrollWheel(InputAction.CallbackContext context)
